@@ -1,9 +1,21 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const Mongoose = require('mongoose');
+
+const DB_USER = 'accountUser';
+const psd = encodeURIComponent('admin');
+const DB_URL = `mongodb://${DB_USER}:${psd}@localhost:27017/newtonschool`;
 
 const app = express();
 
 app.use(bodyParser.json());
+
+Mongoose.connect(DB_URL).then(() => {
+    console.log("Database created Successfully");
+}).catch((err) => {
+    console.log(err);
+});
+
 app.get('/', (req, res) => {
 
     const personObj = {
